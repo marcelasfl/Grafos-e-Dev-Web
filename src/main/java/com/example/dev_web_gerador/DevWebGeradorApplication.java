@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DevWebGeradorApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(DevWebGeradorApplication.class, args);
 	}
 
