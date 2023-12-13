@@ -5,21 +5,23 @@
  */
 package com.example.dev_web_gerador.lib;
 
-import com.example.dev_web_gerador.Model.Epico;
-import jakarta.transaction.Transactional;
-
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+import com.example.dev_web_gerador.Model.Epico;
+
+import jakarta.transaction.Transactional;
 
 /**
  *
  * @author Victor, Marcela, Isabella, Hanna
  */
+
 public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
-    //public class ArvoreBinariaExemplo<T extends Comparable<T>> implements IArvoreBinaria<T> {
+    // public class ArvoreBinariaExemplo<T extends Comparable<T>> implements
+    // IArvoreBinaria<T> {
 
     protected No<T> raiz = null;
     protected Comparator<T> comparador;
@@ -89,7 +91,7 @@ public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
         if (no == null) {
             return no;
         }
-        //primeira caso: nao tem nenhum nó na arvore
+        // primeira caso: nao tem nenhum nó na arvore
 
         if (this.comparador.compare(valor, no.getValor()) < 0) {
             no.setFilhoEsquerda(removerRecursivo(no.getFilhoEsquerda(), valor));
@@ -138,7 +140,6 @@ public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
         return Math.max(esquerda, direita) + 1;
     }
 
-
     @Override
     public int quantidadeNos() {
         return quantidadeNos(raiz);
@@ -157,7 +158,7 @@ public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
     @Override
     public String caminharEmNivel() {
         if (raiz == null) {
-            return "[]"; //caso de arvore vazia
+            return "[]"; // caso de arvore vazia
         }
 
         StringBuilder result = new StringBuilder("[");
@@ -210,7 +211,6 @@ public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
         caminharEmOrdemRecursivo(no.getFilhoDireita(), resultado);
     }
 
-
     @Override
     public T obterProximo() {
         while (atual != null || !pilha.isEmpty()) {
@@ -231,11 +231,11 @@ public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
 
     @Override
     public void reiniciarNavegacao() {
-        pilha.clear(); //esvazia a pilha
-        atual = null; //retorna o valor do no atual para nulo
+        pilha.clear(); // esvazia a pilha
+        atual = null; // retorna o valor do no atual para nulo
     }
 
-    //Tentativa de imprimir a árvore
+    // Tentativa de imprimir a árvore
     public Epico imprimirArvore() {
         System.out.println("Árvore Binária:");
         imprimirArvoreRecursivamente(raiz, 0);
@@ -255,7 +255,7 @@ public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
         }
     }
 
-    public T pesquisarPorId(long id) { //Pesquisando pelo id
+    public T pesquisarPorId(long id) { // Pesquisando pelo id
         if (id <= 0) {
             return null;
         } else {
@@ -268,16 +268,17 @@ public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
             return null;
         }
 
-        if (id == ((Epico) no.getValor()).getId()) { //Verifica se o no atual corresponde ao id passado como parametro
+        if (id == ((Epico) no.getValor()).getId()) { // Verifica se o no atual corresponde ao id passado como parametro
             return no.getValor();
-        } else if (id < ((Epico) no.getValor()).getId()) { //Verificando se o valor do id é menor, se for, a busca vai para o lado esquerdo
+        } else if (id < ((Epico) no.getValor()).getId()) { // Verificando se o valor do id é menor, se for, a busca vai
+                                                           // para o lado esquerdo
             return pesquisarRecursivoPorId(id, no.getFilhoEsquerda());
         } else {
-            return pesquisarRecursivoPorId(id, no.getFilhoDireita()); //Senão vai para o direito
+            return pesquisarRecursivoPorId(id, no.getFilhoDireita()); // Senão vai para o direito
         }
     }
 
-    public T removerPorId(long id) { //Remoção de um nó com base no id
+    public T removerPorId(long id) { // Remoção de um nó com base no id
         if (id <= 0) {
             return null;
         } else {
@@ -291,31 +292,36 @@ public class ArvoreBinariaExemplo<T> implements IArvoreBinaria<T> {
         if (no == null) {
             return null; // Se o nó for nulo, o épico não foi encontrado
         }
-        if (id == ((Epico) no.getValor()).getId()) { //Verifica se o ID do nó atual corresponde ao id do nó fornecido
+        if (id == ((Epico) no.getValor()).getId()) { // Verifica se o ID do nó atual corresponde ao id do nó fornecido
 
-
-            if (no.getFilhoEsquerda() == null) {//Verificca se o nó  tem filho a esuerda , retornando o filho a direita
+            if (no.getFilhoEsquerda() == null) {// Verificca se o nó tem filho a esuerda , retornando o filho a direita
                 return no.getFilhoDireita();
-            //Se não tiver na direita retorna o da esquerda
+                // Se não tiver na direita retorna o da esquerda
             } else if (no.getFilhoDireita() == null) {
                 return no.getFilhoEsquerda();
             }
 
-            no.setValor(encontrarMinimo(no.getFilhoDireita()).getValor()); //Define o atual como valor mínimo do lado direito da subarvore, encontrando o minimo com a função
-            no.setFilhoDireita(removerRecursivoPorId(no.getFilhoDireita(), ((Epico) no.getValor()).getId())); //Remove esse valor minimo da subarvore
+            no.setValor(encontrarMinimo(no.getFilhoDireita()).getValor()); // Define o atual como valor mínimo do lado
+                                                                           // direito da subarvore, encontrando o minimo
+                                                                           // com a função
+            no.setFilhoDireita(removerRecursivoPorId(no.getFilhoDireita(), ((Epico) no.getValor()).getId())); // Remove
+                                                                                                              // esse
+                                                                                                              // valor
+                                                                                                              // minimo
+                                                                                                              // da
+                                                                                                              // subarvore
 
             return no; // Retorna o nó atualizado
         }
 
-        if (id < ((Epico) no.getValor()).getId()) { //Verifica se o id é menor que o id do nó atual, para ontinuar a recurção do lado esquerdo
+        if (id < ((Epico) no.getValor()).getId()) { // Verifica se o id é menor que o id do nó atual, para ontinuar a
+                                                    // recurção do lado esquerdo
             no.setFilhoEsquerda(removerRecursivoPorId(no.getFilhoEsquerda(), id));
         } else {
-            no.setFilhoDireita(removerRecursivoPorId(no.getFilhoDireita(), id)); //Senão, continua no lado direito
+            no.setFilhoDireita(removerRecursivoPorId(no.getFilhoDireita(), id)); // Senão, continua no lado direito
         }
 
         return no;
     }
-
-
 
 }
