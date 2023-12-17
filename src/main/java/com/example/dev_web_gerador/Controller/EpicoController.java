@@ -158,6 +158,7 @@ public class EpicoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletarEpico(@PathVariable(value = "id") long id) {
         Optional<Epico> epico = epicoRepository.findById(id);
+        //EpicoDTO epicoRemovido = arvoreBinaria.removerPorId(id);
         arvoreBinaria.removerPorId(id);
         if (epico.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(StatusCode.EPIC_NOT_FOUND.getCode());
